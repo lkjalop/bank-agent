@@ -4,6 +4,10 @@ from datetime import datetime
 import uvicorn
 import os
 
+# Get port from environment for Render deployment
+PORT = int(os.environ.get("PORT", 8000))
+print(f"🔧 Configured to use port: {PORT}")
+
 app = FastAPI(
     title="Bank Account Agent",
     description="A simple FastAPI application for bank account operations",
@@ -98,6 +102,5 @@ def get_recent_transactions():
     }
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Starting server on 0.0.0.0:{port}")
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    print(f"Starting server on 0.0.0.0:{PORT}")
+    uvicorn.run(app, host="0.0.0.0", port=PORT)
