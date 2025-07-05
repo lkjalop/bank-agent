@@ -30,13 +30,20 @@ mock_account_data = {
 }
 
 @app.get("/")
+@app.head("/")
 def root():
-    """Root endpoint - health check"""
+    """Root endpoint - health check (supports both GET and HEAD requests)"""
     return {
         "message": "Bank Account Agent is running!",
         "status": "healthy",
         "timestamp": datetime.now().isoformat()
     }
+
+@app.get("/health")
+@app.head("/health")
+def health_check():
+    """Dedicated health check endpoint for load balancers"""
+    return {"status": "healthy"}
 
 @app.get("/account/balance")
 def get_balance():
